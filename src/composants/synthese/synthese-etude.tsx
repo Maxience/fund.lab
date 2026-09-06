@@ -13,7 +13,7 @@ import {
   type ResultatEtude,
   type Rubrique,
 } from '@/lib/moteur';
-import { cheminEtape, ETAPES } from '@/lib/parcours/etapes';
+import { cheminEtape as cheminEtapePme, ETAPES, type SlugEtape } from '@/lib/parcours/etapes';
 
 import { BarreIndicateur, JaugeScore } from './jauge-score';
 
@@ -23,9 +23,9 @@ const TON_ORIENTATION: Record<Orientation, TonPastille> = {
   NO_GO: 'critique',
 };
 
-function cheminRubrique(rubrique: Rubrique): string {
+function cheminRubrique(rubrique: Rubrique, chemin: (slug: SlugEtape) => string): string {
   const etape = ETAPES.find((e) => e.rubrique === rubrique);
-  return cheminEtape(etape?.slug ?? 'projet');
+  return chemin(etape?.slug ?? 'projet');
 }
 
 function dateLongue(iso: string): string {
@@ -40,6 +40,8 @@ export interface ProprietesSyntheseEtude {
   resultat: ResultatEtude;
   config: ConfigurationMethodologie;
   statut: 'BROUILLON' | 'COMPLETE';
+  /** Chemin d'une étape, pour les liens de correction ; parcours PME par défaut. */
+  cheminEtape?: (slug: SlugEtape) => string;
 }
 
 /**
@@ -47,7 +49,13 @@ export interface ProprietesSyntheseEtude {
  * Composant sans état, réutilisé par la version imprimable et, plus tard, par
  * la restitution Expert.
  */
-export function SyntheseEtude({ etude, resultat, config, statut }: ProprietesSyntheseEtude) {
+export function SyntheseEtude({
+  etude,
+  resultat,
+  config,
+  statut,
+  cheminEtape = cheminEtapePme,
+}: ProprietesSyntheseEtude) {
   const { scores, decision, projection, recommandations, decomposition, alertes, completude } =
     resultat;
   const bloquantes = alertes.filter((a) => a.niveau === 'BLOQUANTE');
@@ -97,7 +105,7 @@ export function SyntheseEtude({ etude, resultat, config, statut }: ProprietesSyn
               <li key={i}>
                 {a.message}{' '}
                 <Link
-                  href={cheminRubrique(a.rubrique)}
+                  href={cheminRubrique(a.rubrique, cheminEtape)}
                   className="sans-impression font-medium text-accent underline-offset-2 hover:underline"
                 >
                   Corriger

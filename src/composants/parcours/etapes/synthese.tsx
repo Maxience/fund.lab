@@ -7,20 +7,29 @@ import { SyntheseEtude } from '@/composants/synthese/synthese-etude';
 import { Alerte } from '@/composants/ui/alerte';
 import { Bouton, LienBouton } from '@/composants/ui/bouton';
 import { CONFIG_COURANTE, evaluerEtude } from '@/lib/moteur';
-import { cheminEtape } from '@/lib/parcours/etapes';
 import { premiereEtapeInvalide } from '@/lib/parcours/validation-etape';
 
 import { useEtude } from '../contexte-etude';
 import { EnTeteEtape } from '../en-tete-etape';
 
 export function EtapeSynthese() {
-  const { etude, locale, finaliser, rouvrir, recommencer } = useEtude();
+  const {
+    etude,
+    locale,
+    finaliser,
+    rouvrir,
+    recommencer,
+    chemin: cheminEtape,
+    cheminSortie,
+    libelleSortie,
+  } = useEtude();
   const resultat = useMemo(() => evaluerEtude(etude), [etude]);
   const etapeInvalide = useMemo(() => premiereEtapeInvalide(etude), [etude]);
   const finalisee = locale.statut === 'COMPLETE';
 
   const nouvelleEtude = () => {
     if (
+      recommencer &&
       window.confirm(
         "Commencer une nouvelle étude ? L'étude actuelle sera effacée de ce navigateur.",
       )
@@ -54,9 +63,11 @@ export function EtapeSynthese() {
             Finaliser l&apos;étude
           </Bouton>
         )}
-        <Bouton onClick={nouvelleEtude} variante="discret">
-          Nouvelle étude
-        </Bouton>
+        {recommencer && (
+          <Bouton onClick={nouvelleEtude} variante="discret">
+            Nouvelle étude
+          </Bouton>
+        )}
       </div>
 
       {finalisee && (
@@ -88,14 +99,15 @@ export function EtapeSynthese() {
         resultat={resultat}
         config={CONFIG_COURANTE}
         statut={locale.statut}
+        cheminEtape={cheminEtape}
       />
 
       <div className="sans-impression mt-8 flex flex-col-reverse gap-3 border-t border-bordure pt-5 sm:flex-row sm:items-center sm:justify-between">
         <LienBouton href={cheminEtape('risques')} variante="secondaire">
           Précédent : Risques
         </LienBouton>
-        <LienBouton href="/" variante="discret">
-          Retour à l&apos;accueil
+        <LienBouton href={cheminSortie} variante="discret">
+          {libelleSortie}
         </LienBouton>
       </div>
     </>
