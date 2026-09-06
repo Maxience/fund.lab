@@ -132,6 +132,7 @@ irrecevable ou non auditable.
 | `npm run format`        | Formatage Prettier de tout le dépôt                   |
 | `npm run format:check`  | Vérification du formatage sans modification           |
 | `npm run tirets`        | Contrôle des tirets interdits                         |
+| `npm run exporter:pdf`  | Export PDF d'un document Markdown vers livrables/     |
 | `npm test`              | Tests Vitest                                          |
 | `npm run test:coverage` | Tests avec couverture du moteur                       |
 | `npm run verifier`      | Enchaîne toutes les vérifications ci-dessus           |

@@ -43,3 +43,6 @@ next-env.d.ts
 
 # client Prisma généré
 /src/generated
+
+# documents PDF et HTML generes par npm run exporter:pdf (la source reste le Markdown)
+/livrables

@@ -7,3 +7,4 @@ src/generated
 package-lock.json
 *.tsbuildinfo
 next-env.d.ts
+livrables
