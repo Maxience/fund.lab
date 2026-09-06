@@ -29,7 +29,7 @@ export function CoquilleParcours({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-full flex-col">
-      <header className="sans-impression border-b border-bordure bg-surface">
+      <header className="sans-impression sticky top-0 z-20 border-b border-bordure bg-surface">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 sm:px-6">
           <div className="flex min-w-0 items-center gap-3">
             {mode === 'PME' ? (

@@ -20,7 +20,7 @@ export default async function PageConnexion({
 
   return (
     <div className="flex min-h-full flex-col">
-      <header className="border-b border-bordure bg-surface">
+      <header className="sticky top-0 z-20 border-b border-bordure bg-surface">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           <Link
             href="/"
