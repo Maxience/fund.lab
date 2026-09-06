@@ -14,6 +14,12 @@ Règle transversale : un point d'avancement écrit chaque soir (réalisé,
 prochain objectif, blocage), un commit par point terminé, message en
 français, aucun tiret cadratin ni demi-cadratin nulle part.
 
+Réordonnancement du 2026-09-06 (décision 0004) : le parcours PME (phase 4)
+est réalisé avant la couche de données (phase 3), avec une sauvegarde locale
+dans le navigateur, autorisée par le brief. Les points 26 (identifiant
+temporaire côté serveur) et 36 (finalisation en base) sont complétés lors de
+la phase 3, qui suit. L'espace Expert (phase 5) vient après.
+
 ## Phase 0. Fondations du dépôt (jour 0)
 
 1. Dépôt propre : nouvelle arborescence, premier commit « squelette »,
