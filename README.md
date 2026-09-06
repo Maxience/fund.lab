@@ -6,8 +6,8 @@ par un classeur Excel, en un parcours guidé pour les PME et un espace de
 travail pour les experts du cabinet, avec un moteur de calcul unique,
 versionné et testé.
 
-État du chantier : phase 0, fondations. Le plan ordonné est dans
-[docs/plan-implementation.md](docs/plan-implementation.md).
+Le plan ordonné est dans [docs/plan-implementation.md](docs/plan-implementation.md),
+l'état d'avancement dans [docs/avancement/](docs/avancement/).
 
 ## Prérequis
 
