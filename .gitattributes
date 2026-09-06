@@ -1,0 +1,15 @@
+# Fins de ligne LF pour tous les fichiers texte, quel que soit le poste.
+# Evite les faux changements et garde la verification Prettier (endOfLine: lf) stable.
+* text=auto eol=lf
+
+# Fichiers binaires
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.wasm binary
