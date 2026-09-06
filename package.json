@@ -16,6 +16,8 @@
     "db:migrer:dev": "prisma migrate dev",
     "db:semer": "tsx prisma/seed.mts",
     "db:studio": "prisma studio",
+    "auth:verifier": "tsx scripts/verifier-acces-expert.mts",
+    "auth:creer": "tsx scripts/creer-expert.mts",
     "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint",
     "lint:fix": "eslint --fix",

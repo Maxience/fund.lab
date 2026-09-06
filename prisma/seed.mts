@@ -17,14 +17,12 @@ import { PrismaPg } from '@prisma/adapter-pg';
 
 import { PrismaClient, type Prisma } from '../src/generated/prisma/client';
 import { controlerRobustesse, hacherMotDePasse } from '../src/lib/auth/mot-de-passe';
-import {
-  CAS_NOMINAL,
-  CAS_RISQUES_CRITIQUES,
-  CONFIG_COURANTE,
-  evaluerEtude,
-  type EtudeSaisie,
-  type ResultatEtude,
-} from '../src/lib/moteur';
+import { evaluerEtude, type EtudeSaisie, type ResultatEtude } from '../src/lib/moteur';
+// Sous tsx, les fichiers .ts du projet sont chargés en CommonJS : les noms
+// réexportés par « export * » ne sont pas visibles depuis ce module ESM.
+// D'où les imports depuis les modules d'origine.
+import { CAS_NOMINAL, CAS_RISQUES_CRITIQUES } from '../src/lib/moteur/cas-reference';
+import { CONFIG_COURANTE } from '../src/lib/moteur/config';
 import { champsScalaires, enfantsACreer } from '../src/lib/services/etudes/conversion';
 
 try {
