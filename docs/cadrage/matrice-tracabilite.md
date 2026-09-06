@@ -38,36 +38,36 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 ## Parcours Expert obligatoire
 
-| ID    | Exigence                                                                  | Module                | Preuve       | Statut  |
-| ----- | ------------------------------------------------------------------------- | --------------------- | ------------ | ------- |
-| EXP-1 | Authentification simple et sécurisée, rôle Expert                         | auth, proxy, services | R06, R07     | à faire |
-| EXP-2 | Tableau de bord par client, statut, date de modification                  | expert, services      | R06          | à faire |
-| EXP-3 | Création, consultation, modification, duplication, archivage logique      | expert, services      | R08          | à faire |
-| EXP-4 | Accès aux données détaillées, hypothèses, scores intermédiaires, formules | expert, moteur        | Revue        | à faire |
-| EXP-5 | Commentaires, sources et preuves sur les rubriques principales            | expert, services, bd  | ETA-4        | à faire |
-| EXP-6 | Scénario dérivé sans écraser l'original                                   | services, bd          | R08          | à faire |
-| EXP-7 | Restitution Expert : diagnostic, conditions critiques, recommandations    | expert, moteur        | Revue        | à faire |
-| EXP-8 | Version du moteur visible sur le résultat                                 | expert, moteur        | Revue, DON-5 | à faire |
+| ID    | Exigence                                                                  | Module                | Preuve       | Statut   |
+| ----- | ------------------------------------------------------------------------- | --------------------- | ------------ | -------- |
+| EXP-1 | Authentification simple et sécurisée, rôle Expert                         | auth, proxy, services | R06, R07     | en cours |
+| EXP-2 | Tableau de bord par client, statut, date de modification                  | expert, services      | R06          | en cours |
+| EXP-3 | Création, consultation, modification, duplication, archivage logique      | expert, services      | R08          | en cours |
+| EXP-4 | Accès aux données détaillées, hypothèses, scores intermédiaires, formules | expert, moteur        | Revue        | en cours |
+| EXP-5 | Commentaires, sources et preuves sur les rubriques principales            | expert, services, bd  | ETA-4        | en cours |
+| EXP-6 | Scénario dérivé sans écraser l'original                                   | services, bd          | R08          | en cours |
+| EXP-7 | Restitution Expert : diagnostic, conditions critiques, recommandations    | expert, moteur        | Revue        | en cours |
+| EXP-8 | Version du moteur visible sur le résultat                                 | expert, moteur        | Revue, DON-5 | en cours |
 
 ## États et statuts
 
-| ID    | Exigence                                                   | Module       | Preuve           | Statut  |
-| ----- | ---------------------------------------------------------- | ------------ | ---------------- | ------- |
-| ETA-1 | Étude : brouillon, complète, archivée                      | bd, services | Migration, tests | à faire |
-| ETA-2 | Scénario : référence, variante                             | bd, services | R08              | à faire |
-| ETA-3 | Donnée : renseignée, manquante, non applicable             | moteur, bd   | Tests S-02       | fait    |
-| ETA-4 | Preuve : non documentée, déclarative, observée, documentée | bd, expert   | Migration, revue | à faire |
-| ETA-5 | Décision : GO, GO sous conditions, NO GO                   | moteur       | Tests S-04       | fait    |
+| ID    | Exigence                                                   | Module       | Preuve           | Statut   |
+| ----- | ---------------------------------------------------------- | ------------ | ---------------- | -------- |
+| ETA-1 | Étude : brouillon, complète, archivée                      | bd, services | Migration, tests | en cours |
+| ETA-2 | Scénario : référence, variante                             | bd, services | R08              | en cours |
+| ETA-3 | Donnée : renseignée, manquante, non applicable             | moteur, bd   | Tests S-02       | fait     |
+| ETA-4 | Preuve : non documentée, déclarative, observée, documentée | bd, expert   | Migration, revue | en cours |
+| ETA-5 | Décision : GO, GO sous conditions, NO GO                   | moteur       | Tests S-04       | fait     |
 
 ## Principes de données
 
-| ID    | Exigence                                                       | Module               | Preuve                 | Statut   |
-| ----- | -------------------------------------------------------------- | -------------------- | ---------------------- | -------- |
-| DON-1 | Type explicite pour chaque entrée                              | validation, bd       | Schémas Zod, migration | à faire  |
-| DON-2 | Notes hors échelle refusées côté interface et côté serveur     | validation, moteur   | R02                    | fait     |
-| DON-3 | Pondérations à 100 % avec tolérance de 0,01 point              | moteur, validation   | R03, test de tolérance | fait     |
-| DON-4 | Valeur manquante différente de zéro                            | moteur               | Tests S-02, H6         | fait     |
-| DON-5 | Version du moteur et instantané des paramètres sur le résultat | moteur, services, bd | Test S-06, R05         | en cours |
+| ID    | Exigence                                                       | Module               | Preuve                 | Statut |
+| ----- | -------------------------------------------------------------- | -------------------- | ---------------------- | ------ |
+| DON-1 | Type explicite pour chaque entrée                              | validation, bd       | Schémas Zod, migration | fait   |
+| DON-2 | Notes hors échelle refusées côté interface et côté serveur     | validation, moteur   | R02                    | fait   |
+| DON-3 | Pondérations à 100 % avec tolérance de 0,01 point              | moteur, validation   | R03, test de tolérance | fait   |
+| DON-4 | Valeur manquante différente de zéro                            | moteur               | Tests S-02, H6         | fait   |
+| DON-5 | Version du moteur et instantané des paramètres sur le résultat | moteur, services, bd | Test S-06, R05         | fait   |
 
 ## Formules de référence
 
@@ -122,9 +122,9 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 | ID    | Exigence                                                   | Module               | Preuve         | Statut   |
 | ----- | ---------------------------------------------------------- | -------------------- | -------------- | -------- |
-| TEC-1 | Front responsive couvrant les deux parcours                | app                  | Captures       | en cours |
-| TEC-2 | Couche serveur : validation, persistance, contrôle d'accès | services             | R07, R09       | à faire  |
-| TEC-3 | Base persistante : comptes, études, scénarios, résultats   | bd                   | Migration      | à faire  |
+| TEC-1 | Front responsive couvrant les deux parcours                | app                  | Captures       | fait     |
+| TEC-2 | Couche serveur : validation, persistance, contrôle d'accès | services             | R07, R09       | en cours |
+| TEC-3 | Base persistante : comptes, études, scénarios, résultats   | bd                   | Migration      | en cours |
 | TEC-4 | Module de calcul isolé, sans duplication                   | moteur               | Revue, NR-2    | fait     |
 | TEC-5 | Configuration centralisée et versionnée                    | moteur/config        | Test de config | fait     |
 | TEC-6 | Tests automatisés des calculs et des décisions             | moteur/\_\_tests\_\_ | Rapport Vitest | en cours |
@@ -133,12 +133,12 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 | ID    | Exigence                                          | Module          | Preuve               | Statut   |
 | ----- | ------------------------------------------------- | --------------- | -------------------- | -------- |
-| SEC-1 | Mots de passe hachés                              | auth            | Test unitaire        | à faire  |
-| SEC-2 | Secrets en variables d'environnement              | .env.example    | Revue, NR-6          | en cours |
-| SEC-3 | Contrôle d'accès côté serveur                     | proxy, services | R07                  | à faire  |
+| SEC-1 | Mots de passe hachés                              | auth            | Test unitaire        | fait     |
+| SEC-2 | Secrets en variables d'environnement              | .env.example    | Revue, NR-6          | fait     |
+| SEC-3 | Contrôle d'accès côté serveur                     | proxy, services | R07                  | en cours |
 | SEC-4 | Validation côté client et côté serveur            | validation      | R02, R03             | en cours |
-| SEC-5 | Aucune donnée réelle de client                    | prisma/seed     | Revue                | à faire  |
-| SEC-6 | Erreurs gérées sans information technique exposée | services, app   | Revue                | à faire  |
+| SEC-5 | Aucune donnée réelle de client                    | prisma/seed     | Revue                | en cours |
+| SEC-6 | Erreurs gérées sans information technique exposée | services, app   | Revue                | en cours |
 | SEC-7 | Dépendances inventoriées avec licence et coût     | docs            | Inventaire (phase 6) | en cours |
 
 ## Contraintes de développement
@@ -148,7 +148,7 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 | DEV-1 | Code déposé dès le démarrage dans un espace partagé | dépôt        | Accès FUND.lab (question 9) | en cours |
 | DEV-2 | Aucun résultat codé en dur                          | moteur       | Revue, R10                  | fait     |
 | DEV-3 | Pas de socle no-code                                | architecture | Note de cadrage             | fait     |
-| DEV-4 | Migrations et scripts d'initialisation fournis      | prisma       | R12                         | à faire  |
+| DEV-4 | Migrations et scripts d'initialisation fournis      | prisma       | R12                         | en cours |
 | DEV-5 | Lancement local reproductible                       | README       | R12                         | en cours |
 | DEV-6 | Réductions de périmètre signalées avant la démo     | docs/cadrage | Note de cadrage, section 2  | fait     |
 
@@ -163,7 +163,7 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 | NF-5 | Résultats rattachés à une version et à des paramètres     | moteur, bd  | DON-5               | à faire  |
 | NF-6 | Structure claire, nommage cohérent, fonctions documentées | dépôt       | docs/conventions.md | en cours |
 | NF-7 | Navigation clavier, labels, contraste                     | composants  | Audit accessibilité | en cours |
-| NF-8 | Journalisation minimale des erreurs serveur               | services    | Revue               | à faire  |
+| NF-8 | Journalisation minimale des erreurs serveur               | services    | Revue               | en cours |
 
 ## Scénarios de recette
 
@@ -174,9 +174,9 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 | R03 | Poids de zones dont la somme diffère de 100 %     | Finalisation bloquée, écart signalé                  | Tests Zod et moteur         | en cours |
 | R04 | Ajouter, modifier, supprimer un concurrent        | Liste et pression actualisées                        | Test de service et parcours | en cours |
 | R05 | Finaliser avec un risque noté 3                   | Orientation plafonnée à GO sous conditions critiques | Test de décision            | en cours |
-| R06 | Connexion Expert et consultation des dossiers     | Accès autorisé, tableau de bord affiché              | Test de parcours            | à faire  |
-| R07 | Route Expert sans authentification                | Accès refusé ou redirection                          | Test de proxy et de service | à faire  |
-| R08 | Dupliquer une étude et modifier une hypothèse     | Scénario indépendant, source inchangée               | Test de service             | à faire  |
+| R06 | Connexion Expert et consultation des dossiers     | Accès autorisé, tableau de bord affiché              | Test de parcours            | en cours |
+| R07 | Route Expert sans authentification                | Accès refusé ou redirection                          | Test de proxy et de service | en cours |
+| R08 | Dupliquer une étude et modifier une hypothèse     | Scénario indépendant, source inchangée               | Test de service             | en cours |
 | R09 | Actualiser après sauvegarde                       | Données persistées et récupérées                     | Test de parcours            | en cours |
 | R10 | Exécuter les deux cas de référence                | Résultats dans la tolérance de 0,1 point             | Tests de référence          | en cours |
 | R11 | Imprimer la synthèse                              | Contenu lisible sans éléments d'interface inutiles   | Revue d'impression          | fait     |
@@ -189,7 +189,7 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 | L1  | Note de cadrage           | docs/cadrage/                                       | fait     |
 | L2  | Application déployée      | URL de recette (phase 7)                            | à faire  |
 | L3  | Code source               | Dépôt git, historique par phase                     | en cours |
-| L4  | Base et migrations        | prisma/                                             | à faire  |
+| L4  | Base et migrations        | prisma/                                             | en cours |
 | L5  | Tests                     | src/lib/moteur/\_\_tests\_\_, rapport de couverture | en cours |
 | L6  | Documentation technique   | README.md, docs/                                    | en cours |
 | L7  | Documentation utilisateur | docs/utilisateur/ (phase 7)                         | à faire  |
