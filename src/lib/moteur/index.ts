@@ -46,6 +46,7 @@ export * from './validation';
 export * from './decomposition';
 export * from './recommandations';
 export * from './formatage';
+export * from './cas-reference';
 export { arrondir } from './primitives';
 export { VERSION_MOTEUR } from './version';
 
