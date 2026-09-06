@@ -17,6 +17,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
+      // Le marqueur server-only lève une exception hors composant serveur :
+      // remplacé par un module vide pour tester la couche service.
+      'server-only': path.resolve(import.meta.dirname, './src/lib/test/server-only.ts'),
     },
   },
 });
