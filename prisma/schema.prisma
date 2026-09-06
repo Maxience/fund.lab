@@ -1,0 +1,349 @@
+// Modèle de données de l'outil de chalandise FUND.lab.
+//
+// Les douze objets métier du brief : Utilisateur, Client, Étude, Zone,
+// Évaluation de la demande, Concurrent, Gap, Risque, Preuve, Résultat,
+// Scénario (une étude de type variante liée à sa référence, décision H11)
+// et Session (support de l'authentification). Les états du brief sont des
+// énumérations. Les coefficients méthodologiques ne sont pas en base : ils
+// vivent dans la configuration versionnée du moteur.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/* ------------------------------------------------------------------------ */
+/* États                                                                    */
+/* ------------------------------------------------------------------------ */
+
+enum RoleUtilisateur {
+  EXPERT
+}
+
+enum EtatCompte {
+  ACTIF
+  SUSPENDU
+}
+
+enum StatutEtude {
+  BROUILLON
+  COMPLETE
+  ARCHIVEE
+}
+
+enum TypeScenario {
+  REFERENCE
+  VARIANTE
+}
+
+enum OrigineEtude {
+  PME
+  EXPERT
+}
+
+enum ModeDeplacement {
+  A_PIED
+  DEUX_ROUES
+  VOITURE
+  TRANSPORT_COMMUN
+}
+
+enum RelationConcurrentielle {
+  DIRECTE
+  INDIRECTE
+}
+
+enum StatutMarche {
+  ABSENT
+  MAL_SERVI
+  CORRECT
+}
+
+enum NiveauPreuve {
+  NON_DOCUMENTEE
+  DECLARATIVE
+  OBSERVEE
+  DOCUMENTEE
+}
+
+enum Rubrique {
+  PROJET
+  HYPOTHESES
+  ZONES
+  DEMANDE
+  CONCURRENCE
+  GAPS
+  RISQUES
+  SYNTHESE
+}
+
+enum Orientation {
+  GO
+  GO_SOUS_CONDITIONS
+  NO_GO
+}
+
+/* ------------------------------------------------------------------------ */
+/* Comptes et sessions                                                      */
+/* ------------------------------------------------------------------------ */
+
+model Utilisateur {
+  id              String          @id @default(cuid())
+  email           String          @unique
+  nom             String
+  /// Hachage scrypt, jamais le mot de passe en clair.
+  motDePasseHache String
+  role            RoleUtilisateur @default(EXPERT)
+  etat            EtatCompte      @default(ACTIF)
+  creeLe          DateTime        @default(now())
+  misAJourLe      DateTime        @updatedAt
+
+  sessions Session[]
+  etudes   Etude[]   @relation("ProprietaireEtudes")
+  preuves  Preuve[]
+
+  @@map("utilisateurs")
+}
+
+model Session {
+  id                 String      @id @default(cuid())
+  /// Empreinte SHA-256 du jeton porté par le cookie ; le jeton lui-même n'est jamais stocké.
+  jetonHache         String      @unique
+  utilisateurId      String
+  utilisateur        Utilisateur @relation(fields: [utilisateurId], references: [id], onDelete: Cascade)
+  expireLe           DateTime
+  creeLe             DateTime    @default(now())
+  derniereActiviteLe DateTime    @default(now())
+
+  @@index([utilisateurId])
+  @@map("sessions")
+}
+
+/* ------------------------------------------------------------------------ */
+/* Clients et études                                                        */
+/* ------------------------------------------------------------------------ */
+
+model Client {
+  id            String    @id @default(cuid())
+  nom           String
+  contact       String?
+  notesInternes String?
+  creeLe        DateTime  @default(now())
+  misAJourLe    DateTime  @updatedAt
+  archiveLe     DateTime?
+
+  etudes Etude[]
+
+  @@map("clients")
+}
+
+model Etude {
+  id      String       @id @default(cuid())
+  origine OrigineEtude @default(EXPERT)
+  /// Identifiant temporaire d'une étude PME sans compte, connu du seul navigateur qui l'a créée.
+  jetonPme String?      @unique
+  statut   StatutEtude  @default(BROUILLON)
+
+  /// Un scénario est une étude de type variante liée à son étude de référence.
+  typeScenario    TypeScenario @default(REFERENCE)
+  libelleScenario String?
+  etudeSourceId   String?
+  etudeSource     Etude?       @relation("Scenarios", fields: [etudeSourceId], references: [id], onDelete: SetNull)
+  variantes       Etude[]      @relation("Scenarios")
+
+  clientId       String?
+  client         Client?      @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  proprietaireId String?
+  proprietaire   Utilisateur? @relation("ProprietaireEtudes", fields: [proprietaireId], references: [id], onDelete: SetNull)
+
+  // Projet et site
+  nomProjet        String   @default("")
+  localite         String   @default("")
+  concept          String   @default("")
+  horaires         String?
+  capaciteCouverts Int?
+  modesService     String[] @default([])
+
+  // Hypothèses commerciales
+  clientsParJour           Float?
+  ticketMoyenFcfa          Float?
+  joursOuvertureParMois    Int?
+  /// Part du CA consacrée au loyer, en fraction (0,10 pour 10 %).
+  partLoyerCible           Float?
+  loyerMensuelEnvisageFcfa Float?
+  clienteleCible           String?
+
+  etapeAtteinte       Int       @default(1)
+  versionMethodologie String
+  creeLe              DateTime  @default(now())
+  misAJourLe          DateTime  @updatedAt
+  finaliseeLe         DateTime?
+  archiveeLe          DateTime?
+
+  zones       Zone[]
+  concurrents Concurrent[]
+  gaps        Gap[]
+  risques     Risque[]
+  preuves     Preuve[]
+  resultats   Resultat[]
+
+  @@index([clientId])
+  @@index([proprietaireId])
+  @@index([statut, misAJourLe])
+  @@map("etudes")
+}
+
+model Zone {
+  id      String @id @default(cuid())
+  etudeId String
+  etude   Etude  @relation(fields: [etudeId], references: [id], onDelete: Cascade)
+  /// Identifiant de la zone côté saisie, stable entre le navigateur et la base.
+  cle     String
+  ordre   Int
+
+  libelle       String
+  rayonKm       Float?
+  tempsAccesMin Float?
+  mode          ModeDeplacement?
+  /// Poids relatif en fraction ; la somme des zones d'une étude fait 1.
+  poids         Float?
+
+  evaluations EvaluationDemande[]
+
+  @@unique([etudeId, cle])
+  @@map("zones")
+}
+
+model EvaluationDemande {
+  id     String @id @default(cuid())
+  zoneId String
+  zone   Zone   @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+
+  driverCode    String
+  /// Note de 0 à 3 ; null quand la donnée n'est pas renseignée.
+  note          Int?
+  nonApplicable Boolean @default(false)
+  commentaire   String?
+
+  @@unique([zoneId, driverCode])
+  @@map("evaluations_demande")
+}
+
+model Concurrent {
+  id      String @id @default(cuid())
+  etudeId String
+  etude   Etude  @relation(fields: [etudeId], references: [id], onDelete: Cascade)
+  cle     String
+  ordre   Int
+
+  nom             String
+  /// Catégorie commerciale libre (crêperie, fast-food, maquis...).
+  typeOffre       String
+  /// Relation avec le projet, seule à piloter le facteur de pondération.
+  relation        RelationConcurrentielle?
+  ticketMoyenFcfa Float?
+
+  // Composantes de la menace, notes de 0 à 3, null si non renseignées.
+  proximite       Int?
+  affluence       Int?
+  qualite         Int?
+  vitesse         Int?
+  differenciation Int?
+  /// Composantes déclarées non applicables.
+  composantesNonApplicables String[] @default([])
+
+  observation String?
+
+  @@unique([etudeId, cle])
+  @@map("concurrents")
+}
+
+model Gap {
+  id      String @id @default(cuid())
+  etudeId String
+  etude   Etude  @relation(fields: [etudeId], references: [id], onDelete: Cascade)
+
+  besoinCode    String
+  statutMarche  StatutMarche?
+  /// Importance de 1 à 3 ; null pour la valeur par défaut de la méthodologie.
+  importance    Int?
+  nonApplicable Boolean @default(false)
+
+  @@unique([etudeId, besoinCode])
+  @@map("gaps")
+}
+
+model Risque {
+  id      String @id @default(cuid())
+  etudeId String
+  etude   Etude  @relation(fields: [etudeId], references: [id], onDelete: Cascade)
+
+  risqueCode    String
+  note          Int?
+  nonApplicable Boolean @default(false)
+  commentaire   String?
+  mesure        String?
+  responsable   String?
+
+  @@unique([etudeId, risqueCode])
+  @@map("risques")
+}
+
+/* ------------------------------------------------------------------------ */
+/* Preuves et résultats                                                     */
+/* ------------------------------------------------------------------------ */
+
+model Preuve {
+  id      String @id @default(cuid())
+  etudeId String
+  etude   Etude  @relation(fields: [etudeId], references: [id], onDelete: Cascade)
+
+  rubrique        Rubrique
+  niveau          NiveauPreuve @default(NON_DOCUMENTEE)
+  source          String?
+  commentaire     String?
+  dateObservation DateTime?
+  auteurId        String?
+  auteur          Utilisateur? @relation(fields: [auteurId], references: [id], onDelete: SetNull)
+  creeLe          DateTime     @default(now())
+  misAJourLe      DateTime     @updatedAt
+
+  @@index([etudeId, rubrique])
+  @@map("preuves")
+}
+
+model Resultat {
+  id      String @id @default(cuid())
+  etudeId String
+  etude   Etude  @relation(fields: [etudeId], references: [id], onDelete: Cascade)
+
+  versionMoteur       String
+  versionMethodologie String
+  calculeLe           DateTime
+
+  scoreGlobal             Float?
+  attractivite            Float?
+  demandeGlobale          Float?
+  pressionConcurrentielle Float?
+  scoreGaps               Float?
+  scoreRisque             Float?
+  orientationCalculee     Orientation?
+  orientationFinale       Orientation?
+  conditionsCritiques     Boolean      @default(false)
+  finalisable             Boolean      @default(false)
+  /// Vrai pour le résultat enregistré à la finalisation, conservé tel quel ; faux pour le calcul courant, remplacé à chaque sauvegarde.
+  fige                    Boolean      @default(false)
+
+  /// Résultat complet du moteur : scores, décision, alertes, recommandations, décomposition.
+  detail     Json
+  /// Instantané des paramètres méthodologiques ayant servi au calcul.
+  parametres Json
+  creeLe     DateTime @default(now())
+
+  @@index([etudeId, creeLe])
+  @@map("resultats")
+}

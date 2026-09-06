@@ -12,7 +12,7 @@ l'état d'avancement dans [docs/avancement/](docs/avancement/).
 ## Prérequis
 
 - Node.js 24 (22.12 minimum) et npm.
-- PostgreSQL 16, nécessaire à partir de la phase 3 (persistance).
+- PostgreSQL 16 ou 17, joignable depuis le poste (URL dans .env).
 
 ## Installation
 
@@ -22,8 +22,13 @@ cp .env.example .env
 npm run dev
 ```
 
-Renseigner les valeurs de `.env` avant de lancer les fonctions qui en
-dépendent. L'application répond sur http://localhost:3000, ou sur le port
+Renseigner ensuite `.env` : URL PostgreSQL, identité et mot de passe du
+premier compte Expert (voir les commentaires du fichier). Puis :
+
+````bash
+npm run db:migrer   # applique les migrations versionnées
+npm run db:semer    # compte Expert initial et données de démonstration fictives
+``` L'application répond sur http://localhost:3000, ou sur le port
 suivant si celui-ci est occupé.
 
 ## Commandes
@@ -36,6 +41,8 @@ suivant si celui-ci est occupé.
 | `npm run lint`          | ESLint                            |
 | `npm run format`        | Formatage Prettier                |
 | `npm run tirets`        | Contrôle des tirets interdits     |
+| `npm run db:migrer`     | Applique les migrations           |
+| `npm run db:semer`      | Données de démonstration          |
 | `npm run exporter:pdf`  | Export PDF d'un document Markdown |
 | `npm test`              | Tests Vitest                      |
 | `npm run test:coverage` | Tests avec couverture du moteur   |
@@ -55,3 +62,4 @@ suivant si celui-ci est occupé.
 Projet réalisé pour FUND.lab dans le cadre d'un challenge. La méthode, les
 règles de calcul et les contenus sont confidentiels : aucune diffusion sans
 autorisation écrite de FUND.lab.
+````

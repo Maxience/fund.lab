@@ -41,6 +41,28 @@ let etat: EtatMagasin | null = null;
 let minuterie: ReturnType<typeof setTimeout> | null = null;
 const abonnes = new Set<() => void>();
 
+/** Copie serveur facultative, appelée après chaque sauvegarde locale. */
+export type Synchroniseur = (locale: EtudeLocale) => Promise<void>;
+let synchroniseur: Synchroniseur | null = null;
+let minuterieSynchronisation: ReturnType<typeof setTimeout> | null = null;
+const DELAI_SYNCHRONISATION_MS = 1500;
+
+export function definirSynchroniseur(fn: Synchroniseur | null): void {
+  synchroniseur = fn;
+}
+
+function planifierSynchronisation(): void {
+  if (!synchroniseur) return;
+  if (minuterieSynchronisation) clearTimeout(minuterieSynchronisation);
+  minuterieSynchronisation = setTimeout(() => {
+    minuterieSynchronisation = null;
+    const courant = instantane();
+    if (!courant.locale || !synchroniseur) return;
+    // La copie serveur ne doit jamais gêner l'utilisateur : tout échec est ignoré.
+    synchroniseur(courant.locale).catch(() => undefined);
+  }, DELAI_SYNCHRONISATION_MS);
+}
+
 function initialiser(): EtatMagasin {
   const stockage = stockageNavigateur();
   const chargee = lireEtudeLocale(stockage);
@@ -70,6 +92,7 @@ function planifierSauvegarde(): void {
       sauvegardeIndisponible: !ok,
     };
     emettre();
+    planifierSynchronisation();
   }, DELAI_SAUVEGARDE_MS);
 }
 
@@ -145,7 +168,10 @@ export function chargerEtude(etude: EtudeSaisie, etapeAtteinte: number): void {
 /** Réservé aux tests : remet le magasin à l'état initial. */
 export function reinitialiserMagasin(): void {
   if (minuterie) clearTimeout(minuterie);
+  if (minuterieSynchronisation) clearTimeout(minuterieSynchronisation);
   minuterie = null;
+  minuterieSynchronisation = null;
+  synchroniseur = null;
   etat = null;
   abonnes.clear();
 }

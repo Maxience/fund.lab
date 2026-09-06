@@ -42,30 +42,40 @@ fraction de 0 à 1 et affichés en pourcentage.
 ```
 src/
   app/                    Routes Next.js (App Router)
-    page.tsx              Accueil, point d'entrée du parcours PME
-    etude/                Parcours PME séquencé (phase 4)
-    connexion/            Authentification Expert (phase 3)
-    expert/               Parcours Expert, protégé (phase 5)
-    globals.css           Jetons de design et styles globaux
-  composants/             Composants React partagés (formulaires, restitution)
+    page.tsx              Accueil, entrée du parcours PME
+    etude/                Parcours PME séquencé, sauvegarde locale et copie serveur
+    connexion/            Authentification Expert
+    expert/               Espace Expert : tableau de bord, clients, dossiers, saisie
+  proxy.ts                Garde de routage optimiste de l'espace Expert
+  composants/
+    ui/                   Champs, boutons, cartes, pastilles, alertes
+    parcours/             Contexte d'étude (PME et Expert), étapes, navigation
+    synthese/             Restitution partagée et jauge
+    accueil/              Reprise d'une étude enregistrée
   lib/
-    moteur/               Moteur de calcul pur, sans dépendance (phase 2)
+    moteur/               Moteur de calcul pur, sans dépendance
       config/             Coefficients, seuils et libellés versionnés
       __tests__/          Tests unitaires et cas de référence
-    validation/           Schémas Zod partagés client et serveur (phase 3)
+    validation/           Schémas Zod partagés client et serveur
+    parcours/             Étapes, étude vierge, sauvegarde locale, magasin, validation
     services/             Persistance, calcul, contrôle d'accès (server-only)
-    auth/                 Sessions et mots de passe
+      etudes/             Conversion saisie et base
+    auth/                 Mots de passe, sessions, limitation, constantes
     bd.ts                 Client Prisma
+    journal.ts            Journalisation sans donnée sensible
+  generated/prisma/       Client Prisma généré (ignoré par git)
 prisma/
   schema.prisma
   migrations/
   seed.mts
-scripts/                  Outils du dépôt (vérifications)
+scripts/                  Outils du dépôt (vérifications, export PDF)
 docs/
   plan-implementation.md
   conventions.md
+  cadrage/                Note de cadrage, backlog, questions, traçabilité
   decisions/              Journal des décisions d'architecture
   avancement/             Points d'avancement quotidiens
+  preuves/                Preuves d'exécution des tests
 ```
 
 ## 4. Invariants d'architecture
@@ -133,6 +143,9 @@ irrecevable ou non auditable.
 | `npm run format:check`  | Vérification du formatage sans modification           |
 | `npm run tirets`        | Contrôle des tirets interdits                         |
 | `npm run exporter:pdf`  | Export PDF d'un document Markdown vers livrables/     |
+| `npm run db:generer`    | Génère le client Prisma                               |
+| `npm run db:migrer`     | Applique les migrations (prisma migrate deploy)       |
+| `npm run db:semer`      | Données de démonstration et compte Expert initial     |
 | `npm test`              | Tests Vitest                                          |
 | `npm run test:coverage` | Tests avec couverture du moteur                       |
 | `npm run verifier`      | Enchaîne toutes les vérifications ci-dessus           |
@@ -141,7 +154,7 @@ irrecevable ou non auditable.
 
 - Node.js 24 en local, contrainte `>=22.12` (exigence de Vitest 5).
 - npm comme gestionnaire de paquets, `package-lock.json` versionné.
-- PostgreSQL 16 à partir de la phase 3.
+- PostgreSQL 16 ou 17 ; l'URL de connexion vit dans .env (DATABASE_URL).
 - Les variables d'environnement sont listées dans `.env.example`, chacune
   avec un commentaire. Toute nouvelle variable y est ajoutée dans le même
   commit que le code qui la lit.

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { Bouton, LienBouton } from '@/composants/ui/bouton';
-import { cheminEtape, etapePrecedente, etapeSuivante, type SlugEtape } from '@/lib/parcours/etapes';
+import { etapePrecedente, etapeSuivante, type SlugEtape } from '@/lib/parcours/etapes';
 
 import { useEtude } from './contexte-etude';
 
@@ -17,25 +17,25 @@ export interface ProprietesNavigationEtape {
 /** Boutons Précédent et Continuer, avec déverrouillage de l'étape suivante. */
 export function NavigationEtape({ slug, onContinuer, libelleSuivant }: ProprietesNavigationEtape) {
   const router = useRouter();
-  const { marquerEtapeAtteinte } = useEtude();
+  const { marquerEtapeAtteinte, chemin, cheminSortie, libelleSortie } = useEtude();
   const precedente = etapePrecedente(slug);
   const suivante = etapeSuivante(slug);
 
   const continuer = () => {
     if (!onContinuer() || !suivante) return;
     marquerEtapeAtteinte(suivante.numero);
-    router.push(cheminEtape(suivante.slug));
+    router.push(chemin(suivante.slug));
   };
 
   return (
     <div className="sans-impression mt-8 flex flex-col-reverse gap-3 border-t border-bordure pt-5 sm:flex-row sm:items-center sm:justify-between">
       {precedente ? (
-        <LienBouton href={cheminEtape(precedente.slug)} variante="secondaire">
+        <LienBouton href={chemin(precedente.slug)} variante="secondaire">
           Précédent : {precedente.court}
         </LienBouton>
       ) : (
-        <LienBouton href="/" variante="secondaire">
-          Accueil
+        <LienBouton href={cheminSortie} variante="secondaire">
+          {libelleSortie}
         </LienBouton>
       )}
       {suivante && (

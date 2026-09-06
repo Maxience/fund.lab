@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { cheminEtape, ETAPES, NOMBRE_ETAPES, type Etape } from '@/lib/parcours/etapes';
+import { ETAPES, NOMBRE_ETAPES, type Etape } from '@/lib/parcours/etapes';
 import { classes } from '@/lib/utilitaires/classes';
 
 import { useEtude } from './contexte-etude';
@@ -21,8 +21,8 @@ function etatEtape(etape: Etape, courante: number, atteinte: number) {
  */
 export function BarreEtapes() {
   const pathname = usePathname();
-  const { locale } = useEtude();
-  const courante = ETAPES.find((e) => pathname.startsWith(cheminEtape(e.slug)))?.numero ?? 1;
+  const { locale, chemin } = useEtude();
+  const courante = ETAPES.find((e) => pathname === chemin(e.slug))?.numero ?? 1;
   const atteinte = Math.max(locale.etapeAtteinte, courante);
   const etapeCourante = ETAPES[courante - 1];
   const progression = Math.round((courante / NOMBRE_ETAPES) * 100);
@@ -66,7 +66,7 @@ export function BarreEtapes() {
               </span>
             ) : (
               <Link
-                href={cheminEtape(etape.slug)}
+                href={chemin(etape.slug)}
                 className={classes(classesLigne, 'hover:bg-surface')}
                 aria-current={etat === 'courante' ? 'step' : undefined}
               >
@@ -81,7 +81,6 @@ export function BarreEtapes() {
 
   return (
     <nav aria-label="Étapes du parcours" className="sans-impression">
-      {/* Grand écran : liste complète. */}
       <div className="hidden lg:block">
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-encre-attenuee">
           Parcours en {NOMBRE_ETAPES} étapes
@@ -89,7 +88,6 @@ export function BarreEtapes() {
         {liste}
       </div>
 
-      {/* Mobile : résumé et barre de progression, liste dépliable. */}
       <details className="group rounded-[var(--radius-carte)] border border-bordure bg-surface px-4 py-3 lg:hidden">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
           <span className="min-w-0">
