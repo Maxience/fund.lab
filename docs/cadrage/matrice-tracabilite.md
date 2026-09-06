@@ -1,0 +1,211 @@
+# Matrice de traçabilité des exigences
+
+Chaque exigence du brief est reliée au module qui la porte et à la preuve
+qui la valide (test automatisé, scénario de recette ou document). La colonne
+« Statut » est tenue à jour à chaque phase : « à faire », « en cours »,
+« fait ». Les identifiants sont ceux utilisés dans le backlog et les tests.
+
+Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
+`src/lib/validation`, `services` pour `src/lib/services`, `pme` pour
+`src/app/etude`, `expert` pour `src/app/expert`, `bd` pour
+`prisma/schema.prisma`.
+
+## Modules fonctionnels (brief, section « Périmètre fonctionnel »)
+
+| ID   | Exigence                                                        | Module                  | Preuve                | Statut  |
+| ---- | --------------------------------------------------------------- | ----------------------- | --------------------- | ------- |
+| MF-A | Projet et site : fiche de cadrage                               | pme, expert, bd         | R01                   | à faire |
+| MF-B | Hypothèses commerciales : CA mensuel et loyer soutenable        | moteur, pme             | FOR-1, FOR-2, R01     | à faire |
+| MF-C | Zones de chalandise : jusqu'à quatre, rayon, temps, mode, poids | pme, validation, bd     | R03                   | à faire |
+| MF-D | Demande : indice par zone et global                             | moteur, pme             | FOR-3, FOR-4          | à faire |
+| MF-E | Concurrence : jusqu'à cinquante, menace et pression             | moteur, pme, validation | FOR-5 à FOR-7, R04    | à faire |
+| MF-F | Vides commerciaux : score de gaps                               | moteur, pme             | FOR-8, FOR-9          | à faire |
+| MF-G | Risques : score, alertes et red flags                           | moteur, pme             | FOR-10, DEC-2, DEC-3  | à faire |
+| MF-H | Synthèse : attractivité, score global, orientation              | moteur, pme, expert     | FOR-11, FOR-12, DEC-1 | à faire |
+
+## Parcours PME obligatoire
+
+| ID    | Exigence                                                                  | Module             | Preuve          | Statut  |
+| ----- | ------------------------------------------------------------------------- | ------------------ | --------------- | ------- |
+| PME-1 | Démarrage sans authentification                                           | pme, services      | R01             | à faire |
+| PME-2 | Parcours séquencé, progression visible, retour à l'étape précédente       | pme                | R01, revue      | à faire |
+| PME-3 | Aides contextuelles : notes, concepts, unités                             | composants         | Revue UI        | à faire |
+| PME-4 | Ajout, modification, suppression de concurrents                           | pme, services      | R04             | à faire |
+| PME-5 | Contrôle des champs obligatoires, valeurs aberrantes, pondérations        | validation, moteur | R02, R03        | à faire |
+| PME-6 | Sauvegarde locale ou identifiant temporaire, reprise depuis le navigateur | pme, services      | R09             | à faire |
+| PME-7 | Synthèse : scores, décision, trois forces, trois vigilances, actions      | moteur, pme        | R01, tests S-08 | à faire |
+| PME-8 | Page de résultat imprimable                                               | pme                | R11             | à faire |
+
+## Parcours Expert obligatoire
+
+| ID    | Exigence                                                                  | Module                | Preuve       | Statut  |
+| ----- | ------------------------------------------------------------------------- | --------------------- | ------------ | ------- |
+| EXP-1 | Authentification simple et sécurisée, rôle Expert                         | auth, proxy, services | R06, R07     | à faire |
+| EXP-2 | Tableau de bord par client, statut, date de modification                  | expert, services      | R06          | à faire |
+| EXP-3 | Création, consultation, modification, duplication, archivage logique      | expert, services      | R08          | à faire |
+| EXP-4 | Accès aux données détaillées, hypothèses, scores intermédiaires, formules | expert, moteur        | Revue        | à faire |
+| EXP-5 | Commentaires, sources et preuves sur les rubriques principales            | expert, services, bd  | ETA-4        | à faire |
+| EXP-6 | Scénario dérivé sans écraser l'original                                   | services, bd          | R08          | à faire |
+| EXP-7 | Restitution Expert : diagnostic, conditions critiques, recommandations    | expert, moteur        | Revue        | à faire |
+| EXP-8 | Version du moteur visible sur le résultat                                 | expert, moteur        | Revue, DON-5 | à faire |
+
+## États et statuts
+
+| ID    | Exigence                                                   | Module       | Preuve           | Statut  |
+| ----- | ---------------------------------------------------------- | ------------ | ---------------- | ------- |
+| ETA-1 | Étude : brouillon, complète, archivée                      | bd, services | Migration, tests | à faire |
+| ETA-2 | Scénario : référence, variante                             | bd, services | R08              | à faire |
+| ETA-3 | Donnée : renseignée, manquante, non applicable             | moteur, bd   | Tests S-02       | à faire |
+| ETA-4 | Preuve : non documentée, déclarative, observée, documentée | bd, expert   | Migration, revue | à faire |
+| ETA-5 | Décision : GO, GO sous conditions, NO GO                   | moteur       | Tests S-04       | à faire |
+
+## Principes de données
+
+| ID    | Exigence                                                       | Module               | Preuve                 | Statut  |
+| ----- | -------------------------------------------------------------- | -------------------- | ---------------------- | ------- |
+| DON-1 | Type explicite pour chaque entrée                              | validation, bd       | Schémas Zod, migration | à faire |
+| DON-2 | Notes hors échelle refusées côté interface et côté serveur     | validation, moteur   | R02                    | à faire |
+| DON-3 | Pondérations à 100 % avec tolérance de 0,01 point              | moteur, validation   | R03, test de tolérance | à faire |
+| DON-4 | Valeur manquante différente de zéro                            | moteur               | Tests S-02, H6         | à faire |
+| DON-5 | Version du moteur et instantané des paramètres sur le résultat | moteur, services, bd | Test S-06, R05         | à faire |
+
+## Formules de référence
+
+| ID     | Exigence                                             | Module          | Preuve             | Statut  |
+| ------ | ---------------------------------------------------- | --------------- | ------------------ | ------- |
+| FOR-1  | CA mensuel indicatif                                 | moteur/formules | Test unitaire      | à faire |
+| FOR-2  | Loyer maximal indicatif                              | moteur/formules | Test unitaire      | à faire |
+| FOR-3  | Demande d'une zone                                   | moteur/formules | Test unitaire      | à faire |
+| FOR-4  | Demande globale                                      | moteur/formules | Test unitaire      | à faire |
+| FOR-5  | Menace d'un concurrent (cinq composantes pondérées)  | moteur/formules | Test unitaire      | à faire |
+| FOR-6  | Facteur de relation : direct 1,00, indirect 0,70     | moteur/config   | Test unitaire      | à faire |
+| FOR-7  | Pression concurrentielle sur les menaces renseignées | moteur/formules | Test unitaire, R04 | à faire |
+| FOR-8  | Points de gap selon le statut du besoin              | moteur/formules | Test unitaire      | à faire |
+| FOR-9  | Score de gaps                                        | moteur/formules | Test unitaire      | à faire |
+| FOR-10 | Score de risque                                      | moteur/formules | Test unitaire      | à faire |
+| FOR-11 | Attractivité                                         | moteur/formules | Test unitaire      | à faire |
+| FOR-12 | Score global                                         | moteur/formules | Test unitaire, R10 | à faire |
+
+## Règles de décision et concurrence
+
+| ID    | Exigence                                                                         | Module                 | Preuve                | Statut  |
+| ----- | -------------------------------------------------------------------------------- | ---------------------- | --------------------- | ------- |
+| DEC-1 | Seuils : moins de 55 NO GO, 55 à 70 exclu GO sous conditions, 70 et plus GO      | moteur/decision        | Tests aux frontières  | à faire |
+| DEC-2 | Un risque noté 3 : jamais GO ; GO sous conditions critiques ou NO GO             | moteur/decision        | R05                   | à faire |
+| DEC-3 | Trois risques notés 2 ou 3 : jamais GO                                           | moteur/decision        | Test unitaire         | à faire |
+| DEC-4 | Red flags prioritaires ; score calculé et orientation finale affichés séparément | moteur, pme, expert    | Test S-04, revue UI   | à faire |
+| DEC-5 | Type d'offre du concurrent distinct de sa relation directe ou indirecte          | bd, validation, moteur | Migration, test FOR-6 | à faire |
+
+## Restitution et prudence
+
+| ID    | Exigence                                                                     | Module              | Preuve     | Statut  |
+| ----- | ---------------------------------------------------------------------------- | ------------------- | ---------- | ------- |
+| RES-1 | Aucune affirmation de viabilité ; hypothèses et données manquantes signalées | moteur, pme, expert | Revue UI   | à faire |
+| RES-2 | Recommandations par règles déterministes, sans IA générative                 | moteur              | Tests S-08 | à faire |
+| RES-3 | Restitution PME : résumé, projection, scores, décision, actions              | pme                 | R01, R11   | à faire |
+| RES-4 | Restitution Expert : statut, sensibilité, composantes, conditions, preuves   | expert              | Revue      | à faire |
+
+## Exigences d'interface
+
+| ID   | Exigence                                                                   | Module                 | Preuve              | Statut  |
+| ---- | -------------------------------------------------------------------------- | ---------------------- | ------------------- | ------- |
+| UI-1 | Responsive dès 360 px et sur ordinateur                                    | app, composants        | Captures            | à faire |
+| UI-2 | Libellés en français correct, vocabulaire PME                              | app                    | Revue               | à faire |
+| UI-3 | Unités affichées systématiquement                                          | composants             | Revue               | à faire |
+| UI-4 | Champs obligatoires, facultatifs, non applicables identifiés               | composants             | Revue               | à faire |
+| UI-5 | Messages d'erreur à proximité du champ, actionnables                       | composants, validation | R02, R03            | à faire |
+| UI-6 | Aucune perte silencieuse de données à la navigation                        | pme, expert            | R09, revue          | à faire |
+| UI-7 | Hiérarchie lisible ; valeurs numériques et explications toujours présentes | pme, expert            | Revue               | à faire |
+| UI-8 | Couleurs accessibles, contraste, labels associés aux contrôles             | composants             | Audit accessibilité | à faire |
+
+## Architecture minimale
+
+| ID    | Exigence                                                   | Module               | Preuve         | Statut   |
+| ----- | ---------------------------------------------------------- | -------------------- | -------------- | -------- |
+| TEC-1 | Front responsive couvrant les deux parcours                | app                  | Captures       | à faire  |
+| TEC-2 | Couche serveur : validation, persistance, contrôle d'accès | services             | R07, R09       | à faire  |
+| TEC-3 | Base persistante : comptes, études, scénarios, résultats   | bd                   | Migration      | à faire  |
+| TEC-4 | Module de calcul isolé, sans duplication                   | moteur               | Revue, NR-2    | à faire  |
+| TEC-5 | Configuration centralisée et versionnée                    | moteur/config        | Test de config | à faire  |
+| TEC-6 | Tests automatisés des calculs et des décisions             | moteur/\_\_tests\_\_ | Rapport Vitest | en cours |
+
+## Sécurité et qualité
+
+| ID    | Exigence                                          | Module          | Preuve               | Statut   |
+| ----- | ------------------------------------------------- | --------------- | -------------------- | -------- |
+| SEC-1 | Mots de passe hachés                              | auth            | Test unitaire        | à faire  |
+| SEC-2 | Secrets en variables d'environnement              | .env.example    | Revue, NR-6          | en cours |
+| SEC-3 | Contrôle d'accès côté serveur                     | proxy, services | R07                  | à faire  |
+| SEC-4 | Validation côté client et côté serveur            | validation      | R02, R03             | à faire  |
+| SEC-5 | Aucune donnée réelle de client                    | prisma/seed     | Revue                | à faire  |
+| SEC-6 | Erreurs gérées sans information technique exposée | services, app   | Revue                | à faire  |
+| SEC-7 | Dépendances inventoriées avec licence et coût     | docs            | Inventaire (phase 6) | en cours |
+
+## Contraintes de développement
+
+| ID    | Exigence                                            | Module       | Preuve                      | Statut   |
+| ----- | --------------------------------------------------- | ------------ | --------------------------- | -------- |
+| DEV-1 | Code déposé dès le démarrage dans un espace partagé | dépôt        | Accès FUND.lab (question 9) | en cours |
+| DEV-2 | Aucun résultat codé en dur                          | moteur       | Revue, R10                  | à faire  |
+| DEV-3 | Pas de socle no-code                                | architecture | Note de cadrage             | fait     |
+| DEV-4 | Migrations et scripts d'initialisation fournis      | prisma       | R12                         | à faire  |
+| DEV-5 | Lancement local reproductible                       | README       | R12                         | en cours |
+| DEV-6 | Réductions de périmètre signalées avant la démo     | docs/cadrage | Note de cadrage, section 2  | fait     |
+
+## Exigences non fonctionnelles
+
+| ID   | Exigence                                                  | Module      | Preuve              | Statut   |
+| ---- | --------------------------------------------------------- | ----------- | ------------------- | -------- |
+| NF-1 | Disponibilité pendant la recette                          | hébergement | URL stable (L2)     | à faire  |
+| NF-2 | Navigation fluide, calcul sans attente perceptible        | moteur, app | Mesure              | à faire  |
+| NF-3 | Chrome et Edge récents, mobile et desktop                 | app         | Captures            | à faire  |
+| NF-4 | Aucune perte après sauvegarde confirmée                   | services    | R09                 | à faire  |
+| NF-5 | Résultats rattachés à une version et à des paramètres     | moteur, bd  | DON-5               | à faire  |
+| NF-6 | Structure claire, nommage cohérent, fonctions documentées | dépôt       | docs/conventions.md | en cours |
+| NF-7 | Navigation clavier, labels, contraste                     | composants  | Audit accessibilité | à faire  |
+| NF-8 | Journalisation minimale des erreurs serveur               | services    | Revue               | à faire  |
+
+## Scénarios de recette
+
+| ID  | Scénario                                          | Résultat attendu                                     | Preuve prévue               | Statut  |
+| --- | ------------------------------------------------- | ---------------------------------------------------- | --------------------------- | ------- |
+| R01 | Parcours PME complet avec données valides         | Synthèse produite, étude récupérable                 | Test automatisé de parcours | à faire |
+| R02 | Note inférieure à 0 ou supérieure à 3             | Saisie refusée avec message explicite                | Tests Zod et moteur         | à faire |
+| R03 | Poids de zones dont la somme diffère de 100 %     | Finalisation bloquée, écart signalé                  | Tests Zod et moteur         | à faire |
+| R04 | Ajouter, modifier, supprimer un concurrent        | Liste et pression actualisées                        | Test de service et parcours | à faire |
+| R05 | Finaliser avec un risque noté 3                   | Orientation plafonnée à GO sous conditions critiques | Test de décision            | à faire |
+| R06 | Connexion Expert et consultation des dossiers     | Accès autorisé, tableau de bord affiché              | Test de parcours            | à faire |
+| R07 | Route Expert sans authentification                | Accès refusé ou redirection                          | Test de proxy et de service | à faire |
+| R08 | Dupliquer une étude et modifier une hypothèse     | Scénario indépendant, source inchangée               | Test de service             | à faire |
+| R09 | Actualiser après sauvegarde                       | Données persistées et récupérées                     | Test de parcours            | à faire |
+| R10 | Exécuter les deux cas de référence                | Résultats dans la tolérance de 0,1 point             | Tests de référence          | à faire |
+| R11 | Imprimer la synthèse                              | Contenu lisible sans éléments d'interface inutiles   | Revue d'impression          | à faire |
+| R12 | Lancer le projet localement avec la documentation | Installation reproductible                           | Lancement à froid           | à faire |
+
+## Livrables
+
+| ID  | Livrable                  | Emplacement prévu                                   | Statut   |
+| --- | ------------------------- | --------------------------------------------------- | -------- |
+| L1  | Note de cadrage           | docs/cadrage/                                       | fait     |
+| L2  | Application déployée      | URL de recette (phase 7)                            | à faire  |
+| L3  | Code source               | Dépôt git, historique par phase                     | en cours |
+| L4  | Base et migrations        | prisma/                                             | à faire  |
+| L5  | Tests                     | src/lib/moteur/\_\_tests\_\_, rapport de couverture | à faire  |
+| L6  | Documentation technique   | README.md, docs/                                    | en cours |
+| L7  | Documentation utilisateur | docs/utilisateur/ (phase 7)                         | à faire  |
+| L8  | Absent du brief           | Question 12                                         | en cours |
+| L9  | Registre des écarts       | docs/ecarts.md (phase 7)                            | à faire  |
+| L10 | Feuille de route          | docs/feuille-de-route.md (phase 7)                  | à faire  |
+
+## Motifs de non-recevabilité
+
+| ID   | Constat éliminatoire                                           | Parade                                                        | Statut   |
+| ---- | -------------------------------------------------------------- | ------------------------------------------------------------- | -------- |
+| NR-1 | Code source incomplet ou projet impossible à lancer            | Dépôt complet, README testé à froid (R12)                     | en cours |
+| NR-2 | Résultats codés en dur ou calculs différents selon le parcours | Moteur unique, cas de recette en entrée seulement             | à faire  |
+| NR-3 | Écarts inexpliqués avec les cas de référence                   | Tests de référence, décomposition du score                    | à faire  |
+| NR-4 | Perte de données après sauvegarde confirmée                    | Transactions, R09 automatisé                                  | à faire  |
+| NR-5 | Accès aux données Expert sans autorisation                     | Garde de routage et de service, R07 automatisé                | à faire  |
+| NR-6 | Secrets dans le dépôt                                          | .env ignoré, scan des secrets avant livraison                 | en cours |
+| NR-7 | Dépendance critique non déclarée ou abonnement non approuvé    | Inventaire des dépendances, hébergement déclaré (question 11) | en cours |
+| NR-8 | Application inaccessible pour la recette                       | URL stable vérifiée avant la démo                             | à faire  |
