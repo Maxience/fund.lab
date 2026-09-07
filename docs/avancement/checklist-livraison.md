@@ -9,12 +9,14 @@ Dernière mise à jour : 2026-09-07.
 
 ## Urgent : bloque la recevabilité
 
-- [ ] Écrire le point d'avancement du jour dans `docs/avancement/`
+- [x] Écrire le point d'avancement du jour dans `docs/avancement/`
+      (2026-09-07)
 - [ ] Envoyer le message de questions à FUND.lab (`docs/cadrage/questions-fundlab.md`)
 - [x] Committer les changements en cours et statuer sur `AGENTS.md`, `CLAUDE.md`,
       le PDF du brief (2026-09-07 : ajoutés au `.gitignore`, dépôt propre,
       `npm run verifier` au vert avant commit)
-- [ ] Revérifier qu'aucun secret n'est commité avant livraison
+- [x] Revérifier qu'aucun secret n'est commité avant livraison (2026-09-07 :
+      historique git sans `.env`, aucun motif de secret trouvé dans le code)
 
 ## Phase 6. Qualité transversale (plan, points 46 à 51)
 
