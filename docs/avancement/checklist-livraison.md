@@ -11,9 +11,9 @@ Dernière mise à jour : 2026-09-07.
 
 - [ ] Écrire le point d'avancement du jour dans `docs/avancement/`
 - [ ] Envoyer le message de questions à FUND.lab (`docs/cadrage/questions-fundlab.md`)
-- [ ] Committer les changements en cours (`package-lock.json`, `src/app/page.tsx`)
-      et statuer sur `AGENTS.md`, `CLAUDE.md`, le PDF du brief (à ignorer ou
-      retirer du dépôt, ce ne sont pas des livrables)
+- [x] Committer les changements en cours et statuer sur `AGENTS.md`, `CLAUDE.md`,
+      le PDF du brief (2026-09-07 : ajoutés au `.gitignore`, dépôt propre,
+      `npm run verifier` au vert avant commit)
 - [ ] Revérifier qu'aucun secret n'est commité avant livraison
 
 ## Phase 6. Qualité transversale (plan, points 46 à 51)
