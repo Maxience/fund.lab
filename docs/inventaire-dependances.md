@@ -31,6 +31,24 @@ ou retrait de dépendance.
 Toutes les licences (MIT, Apache-2.0) sont permissives et sans redevance :
 aucune ne conditionne l'usage commercial à un paiement.
 
+## Vulnérabilités signalées par `npm audit`
+
+Relevé le 2026-09-07 : `npm audit` signale 4 alertes de sévérité haute,
+toutes portées par les mêmes deux paquets, `deepmerge-ts` et `mysql2`.
+Vérifié avec `npm ls` : les deux ne sont présents que sous la CLI `prisma`
+(dépendance de développement), jamais sous `@prisma/client` (dépendance de
+production). `mysql2` vient du support MySQL intégré à la CLI, sans rapport
+avec ce projet qui n'utilise que PostgreSQL ; aucun des deux n'est importé
+par le code applicatif ni inclus dans la construction de production
+(`next build`), qui ne bundle que ce que l'application importe réellement.
+Risque jugé nul pour l'application déployée.
+
+La correction proposée (`npm audit fix --force`) installerait `prisma@6.19.3`,
+une régression par rapport à la version 7 stable retenue (décision 0001) et
+un changement majeur incompatible avec le code actuel (adaptateur de
+pilote, format de configuration). Non appliquée pour cette raison. À
+surveiller lors des prochaines mises à jour de Prisma 7.
+
 ## Services externes utilisés
 
 | Service                | Usage                                        | Niveau gratuit                                                      | Coût si dépassement      | Réversibilité                                                         |
