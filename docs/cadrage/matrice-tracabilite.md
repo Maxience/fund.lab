@@ -107,16 +107,16 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 ## Exigences d'interface
 
-| ID   | Exigence                                                                   | Module                 | Preuve              | Statut   |
-| ---- | -------------------------------------------------------------------------- | ---------------------- | ------------------- | -------- |
-| UI-1 | Responsive dès 360 px et sur ordinateur                                    | app, composants        | Captures            | en cours |
-| UI-2 | Libellés en français correct, vocabulaire PME                              | app                    | Revue               | fait     |
-| UI-3 | Unités affichées systématiquement                                          | composants             | Revue               | fait     |
-| UI-4 | Champs obligatoires, facultatifs, non applicables identifiés               | composants             | Revue               | fait     |
-| UI-5 | Messages d'erreur à proximité du champ, actionnables                       | composants, validation | R02, R03            | fait     |
-| UI-6 | Aucune perte silencieuse de données à la navigation                        | pme, expert            | R09, revue          | fait     |
-| UI-7 | Hiérarchie lisible ; valeurs numériques et explications toujours présentes | pme, expert            | Revue               | fait     |
-| UI-8 | Couleurs accessibles, contraste, labels associés aux contrôles             | composants             | Audit accessibilité | en cours |
+| ID   | Exigence                                                                   | Module                 | Preuve                      | Statut |
+| ---- | -------------------------------------------------------------------------- | ---------------------- | --------------------------- | ------ |
+| UI-1 | Responsive dès 360 px et sur ordinateur                                    | app, composants        | responsive-2026-09-07.md    | fait   |
+| UI-2 | Libellés en français correct, vocabulaire PME                              | app                    | Revue                       | fait   |
+| UI-3 | Unités affichées systématiquement                                          | composants             | Revue                       | fait   |
+| UI-4 | Champs obligatoires, facultatifs, non applicables identifiés               | composants             | Revue                       | fait   |
+| UI-5 | Messages d'erreur à proximité du champ, actionnables                       | composants, validation | R02, R03                    | fait   |
+| UI-6 | Aucune perte silencieuse de données à la navigation                        | pme, expert            | R09, revue                  | fait   |
+| UI-7 | Hiérarchie lisible ; valeurs numériques et explications toujours présentes | pme, expert            | Revue                       | fait   |
+| UI-8 | Couleurs accessibles, contraste, labels associés aux contrôles             | composants             | accessibilite-2026-09-07.md | fait   |
 
 ## Architecture minimale
 
@@ -154,16 +154,16 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 ## Exigences non fonctionnelles
 
-| ID   | Exigence                                                  | Module      | Preuve                                | Statut   |
-| ---- | --------------------------------------------------------- | ----------- | ------------------------------------- | -------- |
-| NF-1 | Disponibilité pendant la recette                          | hébergement | URL stable (L2)                       | à faire  |
-| NF-2 | Navigation fluide, calcul sans attente perceptible        | moteur, app | Mesure                                | en cours |
-| NF-3 | Chrome et Edge récents, mobile et desktop                 | app         | Captures                              | en cours |
-| NF-4 | Aucune perte après sauvegarde confirmée                   | services    | R09                                   | à faire  |
-| NF-5 | Résultats rattachés à une version et à des paramètres     | moteur, bd  | DON-5                                 | à faire  |
-| NF-6 | Structure claire, nommage cohérent, fonctions documentées | dépôt       | docs/conventions.md                   | en cours |
-| NF-7 | Navigation clavier, labels, contraste                     | composants  | Audit accessibilité                   | en cours |
-| NF-8 | Journalisation minimale des erreurs serveur               | services    | journal.ts, audit-securite-2026-09-07 | fait     |
+| ID   | Exigence                                                  | Module      | Preuve                                                          | Statut   |
+| ---- | --------------------------------------------------------- | ----------- | --------------------------------------------------------------- | -------- |
+| NF-1 | Disponibilité pendant la recette                          | hébergement | URL stable (L2)                                                 | à faire  |
+| NF-2 | Navigation fluide, calcul sans attente perceptible        | moteur, app | performance-2026-09-07.md                                       | fait     |
+| NF-3 | Chrome et Edge récents, mobile et desktop                 | app         | responsive-2026-09-07.md (Edge ; Chrome à confirmer en recette) | en cours |
+| NF-4 | Aucune perte après sauvegarde confirmée                   | services    | R09                                                             | à faire  |
+| NF-5 | Résultats rattachés à une version et à des paramètres     | moteur, bd  | DON-5                                                           | à faire  |
+| NF-6 | Structure claire, nommage cohérent, fonctions documentées | dépôt       | docs/conventions.md                                             | en cours |
+| NF-7 | Navigation clavier, labels, contraste                     | composants  | accessibilite-2026-09-07.md                                     | fait     |
+| NF-8 | Journalisation minimale des erreurs serveur               | services    | journal.ts, audit-securite-2026-09-07                           | fait     |
 
 ## Scénarios de recette
 

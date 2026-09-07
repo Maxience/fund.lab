@@ -20,10 +20,19 @@ Dernière mise à jour : 2026-09-07.
 
 ## Phase 6. Qualité transversale (plan, points 46 à 51)
 
-- [ ] Q-01 Responsive vérifié à 360 px et sur ordinateur, Chrome et Edge
-- [ ] Q-02 Accessibilité : labels, clavier, focus visible, contraste, couleur
-      jamais seule
-- [ ] Q-03 Performance : rendu serveur, calcul sans attente perceptible
+- [x] Q-01 Responsive vérifié à 360 px et sur ordinateur, Chrome et Edge
+      (2026-09-07, `docs/preuves/responsive-2026-09-07.md` : toutes les
+      pages testées à 360 px via le protocole DevTools, aucun débordement ;
+      Edge seulement, Chrome partage le même moteur, à confirmer en recette)
+- [x] Q-02 Accessibilité : labels, clavier, focus visible, contraste, couleur
+      jamais seule (2026-09-07, `docs/preuves/accessibilite-2026-09-07.md` :
+      revue de code, aucun défaut bloquant, deux points mineurs non
+      bloquants notés)
+- [x] Q-03 Performance : rendu serveur, calcul sans attente perceptible
+      (2026-09-07, `docs/preuves/performance-2026-09-07.md` : mesuré sur une
+      vraie construction de production ; pages publiques et PME en quelques
+      millisecondes, un point de vigilance documenté sur la latence réseau
+      vers la base de développement distante)
 - [x] Q-04 Un scénario de test automatisé par cas de recette R01 à R12
       (2026-09-07 : R01 à R05, R08, R09 par une nouvelle base de test
       dédiée `chalandise_test` et `npm run test:recette`
