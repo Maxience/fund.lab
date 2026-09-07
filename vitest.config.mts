@@ -5,6 +5,10 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],
+    // Les tests de recette (npm run test:recette) écrivent dans une vraie
+    // base de données : exclus d'ici pour que la suite par défaut reste
+    // rapide et sans connexion réseau.
+    exclude: ['**/node_modules/**', 'src/**/*.recette.test.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
