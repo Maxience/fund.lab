@@ -25,8 +25,10 @@ Dernière mise à jour : 2026-09-07.
       jamais seule
 - [ ] Q-03 Performance : rendu serveur, calcul sans attente perceptible
 - [ ] Q-04 Un scénario de test automatisé par cas de recette R01 à R12
-- [ ] Q-05 Audit de sécurité : garde sur chaque route Expert, scan des
+- [x] Q-05 Audit de sécurité : garde sur chaque route Expert, scan des
       secrets, en-têtes de sécurité, aucune trace technique exposée
+      (2026-09-07, `docs/preuves/audit-securite-2026-09-07.md` ; seul écart
+      trouvé, en-têtes de sécurité absents, corrigé dans `next.config.ts`)
 - [x] Q-06 Inventaire des dépendances : licence, coût, niveau gratuit,
       réversibilité (2026-09-07, `docs/inventaire-dependances.md`)
 
