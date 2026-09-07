@@ -24,7 +24,13 @@ Dernière mise à jour : 2026-09-07.
 - [ ] Q-02 Accessibilité : labels, clavier, focus visible, contraste, couleur
       jamais seule
 - [ ] Q-03 Performance : rendu serveur, calcul sans attente perceptible
-- [ ] Q-04 Un scénario de test automatisé par cas de recette R01 à R12
+- [x] Q-04 Un scénario de test automatisé par cas de recette R01 à R12
+      (2026-09-07 : R01 à R05, R08, R09 par une nouvelle base de test
+      dédiée `chalandise_test` et `npm run test:recette`
+      (`docs/decisions/0006-tests-de-recette-base-dediee.md`) ; R10 déjà
+      couvert par le moteur ; R06 et R07 par `npm run auth:verifier` contre
+      un serveur réel ; R11 vérifié par export PDF manuel ; R12 reste un
+      test procédural, prévu à L-02/L-06)
 - [x] Q-05 Audit de sécurité : garde sur chaque route Expert, scan des
       secrets, en-têtes de sécurité, aucune trace technique exposée
       (2026-09-07, `docs/preuves/audit-securite-2026-09-07.md` ; seul écart

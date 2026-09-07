@@ -44,8 +44,11 @@ suivant si celui-ci est occupé.
 | `npm run db:migrer`     | Applique les migrations           |
 | `npm run db:semer`      | Données de démonstration          |
 | `npm run exporter:pdf`  | Export PDF d'un document Markdown |
-| `npm test`              | Tests Vitest                      |
+| `npm test`              | Tests Vitest (suite rapide, sans base de données) |
 | `npm run test:coverage` | Tests avec couverture du moteur   |
+| `npm run test:recette`  | Tests de recette R01-R12 contre `DATABASE_URL_TEST` (voir `docs/decisions/0006-tests-de-recette-base-dediee.md`) |
+| `npm run auth:creer`    | Crée ou met à jour un compte Expert |
+| `npm run auth:verifier` | Contrôle d'accès Expert de bout en bout (cas R06, R07) |
 | `npm run verifier`      | Enchaîne toutes les vérifications |
 
 ## Documentation

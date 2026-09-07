@@ -120,14 +120,14 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 ## Architecture minimale
 
-| ID    | Exigence                                                   | Module               | Preuve         | Statut   |
-| ----- | ---------------------------------------------------------- | -------------------- | -------------- | -------- |
-| TEC-1 | Front responsive couvrant les deux parcours                | app                  | Captures       | fait     |
-| TEC-2 | Couche serveur : validation, persistance, contrôle d'accès | services             | R07, R09       | en cours |
-| TEC-3 | Base persistante : comptes, études, scénarios, résultats   | bd                   | Migration      | en cours |
-| TEC-4 | Module de calcul isolé, sans duplication                   | moteur               | Revue, NR-2    | fait     |
-| TEC-5 | Configuration centralisée et versionnée                    | moteur/config        | Test de config | fait     |
-| TEC-6 | Tests automatisés des calculs et des décisions             | moteur/\_\_tests\_\_ | Rapport Vitest | en cours |
+| ID    | Exigence                                                   | Module               | Preuve                           | Statut   |
+| ----- | ---------------------------------------------------------- | -------------------- | -------------------------------- | -------- |
+| TEC-1 | Front responsive couvrant les deux parcours                | app                  | Captures                         | fait     |
+| TEC-2 | Couche serveur : validation, persistance, contrôle d'accès | services             | R07, R09                         | en cours |
+| TEC-3 | Base persistante : comptes, études, scénarios, résultats   | bd                   | Migration                        | en cours |
+| TEC-4 | Module de calcul isolé, sans duplication                   | moteur               | Revue, NR-2                      | fait     |
+| TEC-5 | Configuration centralisée et versionnée                    | moteur/config        | Test de config                   | fait     |
+| TEC-6 | Tests automatisés des calculs et des décisions             | moteur/\_\_tests\_\_ | Rapport Vitest, tests de recette | fait     |
 
 ## Sécurité et qualité
 
@@ -167,20 +167,20 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 ## Scénarios de recette
 
-| ID  | Scénario                                          | Résultat attendu                                     | Preuve prévue               | Statut   |
-| --- | ------------------------------------------------- | ---------------------------------------------------- | --------------------------- | -------- |
-| R01 | Parcours PME complet avec données valides         | Synthèse produite, étude récupérable                 | Test automatisé de parcours | en cours |
-| R02 | Note inférieure à 0 ou supérieure à 3             | Saisie refusée avec message explicite                | Tests Zod et moteur         | en cours |
-| R03 | Poids de zones dont la somme diffère de 100 %     | Finalisation bloquée, écart signalé                  | Tests Zod et moteur         | en cours |
-| R04 | Ajouter, modifier, supprimer un concurrent        | Liste et pression actualisées                        | Test de service et parcours | en cours |
-| R05 | Finaliser avec un risque noté 3                   | Orientation plafonnée à GO sous conditions critiques | Test de décision            | en cours |
-| R06 | Connexion Expert et consultation des dossiers     | Accès autorisé, tableau de bord affiché              | Test de parcours            | en cours |
-| R07 | Route Expert sans authentification                | Accès refusé ou redirection                          | Test de proxy et de service | en cours |
-| R08 | Dupliquer une étude et modifier une hypothèse     | Scénario indépendant, source inchangée               | Test de service             | en cours |
-| R09 | Actualiser après sauvegarde                       | Données persistées et récupérées                     | Test de parcours            | en cours |
-| R10 | Exécuter les deux cas de référence                | Résultats dans la tolérance de 0,1 point             | Tests de référence          | en cours |
-| R11 | Imprimer la synthèse                              | Contenu lisible sans éléments d'interface inutiles   | Revue d'impression          | fait     |
-| R12 | Lancer le projet localement avec la documentation | Installation reproductible                           | Lancement à froid           | à faire  |
+| ID  | Scénario                                          | Résultat attendu                                     | Preuve prévue                              | Statut  |
+| --- | ------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------ | ------- |
+| R01 | Parcours PME complet avec données valides         | Synthèse produite, étude récupérable                 | `pme.recette.test.ts`                      | fait    |
+| R02 | Note inférieure à 0 ou supérieure à 3             | Saisie refusée avec message explicite                | Tests Zod et moteur, `pme.recette.test.ts` | fait    |
+| R03 | Poids de zones dont la somme diffère de 100 %     | Finalisation bloquée, écart signalé                  | Tests Zod et moteur, `pme.recette.test.ts` | fait    |
+| R04 | Ajouter, modifier, supprimer un concurrent        | Liste et pression actualisées                        | `pme.recette.test.ts`                      | fait    |
+| R05 | Finaliser avec un risque noté 3                   | Orientation plafonnée à GO sous conditions critiques | `expert.recette.test.ts`                   | fait    |
+| R06 | Connexion Expert et consultation des dossiers     | Accès autorisé, tableau de bord affiché              | `npm run auth:verifier`                    | fait    |
+| R07 | Route Expert sans authentification                | Accès refusé ou redirection                          | `npm run auth:verifier`                    | fait    |
+| R08 | Dupliquer une étude et modifier une hypothèse     | Scénario indépendant, source inchangée               | `expert.recette.test.ts`                   | fait    |
+| R09 | Actualiser après sauvegarde                       | Données persistées et récupérées                     | `pme.recette.test.ts`                      | fait    |
+| R10 | Exécuter les deux cas de référence                | Résultats dans la tolérance de 0,1 point             | `reference.test.ts`                        | fait    |
+| R11 | Imprimer la synthèse                              | Contenu lisible sans éléments d'interface inutiles   | Export PDF manuel                          | fait    |
+| R12 | Lancer le projet localement avec la documentation | Installation reproductible                           | Lancement à froid, à rejouer (L-02)        | à faire |
 
 ## Livrables
 
