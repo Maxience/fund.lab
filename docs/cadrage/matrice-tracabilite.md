@@ -148,8 +148,8 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 | DEV-1 | Code déposé dès le démarrage dans un espace partagé | dépôt        | Accès FUND.lab (question 9) | en cours |
 | DEV-2 | Aucun résultat codé en dur                          | moteur       | Revue, R10                  | fait     |
 | DEV-3 | Pas de socle no-code                                | architecture | Note de cadrage             | fait     |
-| DEV-4 | Migrations et scripts d'initialisation fournis      | prisma       | R12                         | en cours |
-| DEV-5 | Lancement local reproductible                       | README       | R12                         | en cours |
+| DEV-4 | Migrations et scripts d'initialisation fournis      | prisma       | R12                         | fait     |
+| DEV-5 | Lancement local reproductible                       | README       | R12                         | fait     |
 | DEV-6 | Réductions de périmètre signalées avant la démo     | docs/cadrage | Note de cadrage, section 2  | fait     |
 
 ## Exigences non fonctionnelles
@@ -167,41 +167,41 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 ## Scénarios de recette
 
-| ID  | Scénario                                          | Résultat attendu                                     | Preuve prévue                              | Statut  |
-| --- | ------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------ | ------- |
-| R01 | Parcours PME complet avec données valides         | Synthèse produite, étude récupérable                 | `pme.recette.test.ts`                      | fait    |
-| R02 | Note inférieure à 0 ou supérieure à 3             | Saisie refusée avec message explicite                | Tests Zod et moteur, `pme.recette.test.ts` | fait    |
-| R03 | Poids de zones dont la somme diffère de 100 %     | Finalisation bloquée, écart signalé                  | Tests Zod et moteur, `pme.recette.test.ts` | fait    |
-| R04 | Ajouter, modifier, supprimer un concurrent        | Liste et pression actualisées                        | `pme.recette.test.ts`                      | fait    |
-| R05 | Finaliser avec un risque noté 3                   | Orientation plafonnée à GO sous conditions critiques | `expert.recette.test.ts`                   | fait    |
-| R06 | Connexion Expert et consultation des dossiers     | Accès autorisé, tableau de bord affiché              | `npm run auth:verifier`                    | fait    |
-| R07 | Route Expert sans authentification                | Accès refusé ou redirection                          | `npm run auth:verifier`                    | fait    |
-| R08 | Dupliquer une étude et modifier une hypothèse     | Scénario indépendant, source inchangée               | `expert.recette.test.ts`                   | fait    |
-| R09 | Actualiser après sauvegarde                       | Données persistées et récupérées                     | `pme.recette.test.ts`                      | fait    |
-| R10 | Exécuter les deux cas de référence                | Résultats dans la tolérance de 0,1 point             | `reference.test.ts`                        | fait    |
-| R11 | Imprimer la synthèse                              | Contenu lisible sans éléments d'interface inutiles   | Export PDF manuel                          | fait    |
-| R12 | Lancer le projet localement avec la documentation | Installation reproductible                           | Lancement à froid, à rejouer (L-02)        | à faire |
+| ID  | Scénario                                          | Résultat attendu                                     | Preuve prévue                              | Statut |
+| --- | ------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------ | ------ |
+| R01 | Parcours PME complet avec données valides         | Synthèse produite, étude récupérable                 | `pme.recette.test.ts`                      | fait   |
+| R02 | Note inférieure à 0 ou supérieure à 3             | Saisie refusée avec message explicite                | Tests Zod et moteur, `pme.recette.test.ts` | fait   |
+| R03 | Poids de zones dont la somme diffère de 100 %     | Finalisation bloquée, écart signalé                  | Tests Zod et moteur, `pme.recette.test.ts` | fait   |
+| R04 | Ajouter, modifier, supprimer un concurrent        | Liste et pression actualisées                        | `pme.recette.test.ts`                      | fait   |
+| R05 | Finaliser avec un risque noté 3                   | Orientation plafonnée à GO sous conditions critiques | `expert.recette.test.ts`                   | fait   |
+| R06 | Connexion Expert et consultation des dossiers     | Accès autorisé, tableau de bord affiché              | `npm run auth:verifier`                    | fait   |
+| R07 | Route Expert sans authentification                | Accès refusé ou redirection                          | `npm run auth:verifier`                    | fait   |
+| R08 | Dupliquer une étude et modifier une hypothèse     | Scénario indépendant, source inchangée               | `expert.recette.test.ts`                   | fait   |
+| R09 | Actualiser après sauvegarde                       | Données persistées et récupérées                     | `pme.recette.test.ts`                      | fait   |
+| R10 | Exécuter les deux cas de référence                | Résultats dans la tolérance de 0,1 point             | `reference.test.ts`                        | fait   |
+| R11 | Imprimer la synthèse                              | Contenu lisible sans éléments d'interface inutiles   | Export PDF manuel                          | fait   |
+| R12 | Lancer le projet localement avec la documentation | Installation reproductible                           | documentation-technique.md, section 8      | fait   |
 
 ## Livrables
 
-| ID  | Livrable                  | Emplacement prévu                                   | Statut   |
-| --- | ------------------------- | --------------------------------------------------- | -------- |
-| L1  | Note de cadrage           | docs/cadrage/                                       | fait     |
-| L2  | Application déployée      | URL de recette (phase 7)                            | à faire  |
-| L3  | Code source               | Dépôt git, historique par phase                     | en cours |
-| L4  | Base et migrations        | prisma/                                             | en cours |
-| L5  | Tests                     | src/lib/moteur/\_\_tests\_\_, rapport de couverture | en cours |
-| L6  | Documentation technique   | README.md, docs/                                    | en cours |
-| L7  | Documentation utilisateur | docs/utilisateur/ (phase 7)                         | à faire  |
-| L8  | Absent du brief           | Question 12                                         | en cours |
-| L9  | Registre des écarts       | docs/ecarts.md (phase 7)                            | à faire  |
-| L10 | Feuille de route          | docs/feuille-de-route.md (phase 7)                  | à faire  |
+| ID  | Livrable                  | Emplacement prévu                              | Statut   |
+| --- | ------------------------- | ---------------------------------------------- | -------- |
+| L1  | Note de cadrage           | docs/cadrage/                                  | fait     |
+| L2  | Application déployée      | URL de recette (phase 7)                       | à faire  |
+| L3  | Code source               | Dépôt git, historique par phase                | en cours |
+| L4  | Base et migrations        | prisma/, décision 0005                         | fait     |
+| L5  | Tests                     | src/lib/moteur/\_\_tests\_\_, tests de recette | fait     |
+| L6  | Documentation technique   | docs/documentation-technique.md                | fait     |
+| L7  | Documentation utilisateur | docs/utilisateur/guide-utilisateur.md          | fait     |
+| L8  | Absent du brief           | Question 12                                    | en cours |
+| L9  | Registre des écarts       | docs/registre-ecarts.md                        | fait     |
+| L10 | Feuille de route          | docs/feuille-de-route.md                       | fait     |
 
 ## Motifs de non-recevabilité
 
 | ID   | Constat éliminatoire                                           | Parade                                                                 | Statut   |
 | ---- | -------------------------------------------------------------- | ---------------------------------------------------------------------- | -------- |
-| NR-1 | Code source incomplet ou projet impossible à lancer            | Dépôt complet, README testé à froid (R12)                              | en cours |
+| NR-1 | Code source incomplet ou projet impossible à lancer            | Dépôt complet, README testé à froid (R12)                              | fait     |
 | NR-2 | Résultats codés en dur ou calculs différents selon le parcours | Moteur unique, cas de recette en entrée seulement                      | en cours |
 | NR-3 | Écarts inexpliqués avec les cas de référence                   | Tests de référence, décomposition du score                             | en cours |
 | NR-4 | Perte de données après sauvegarde confirmée                    | Transactions, R09 automatisé                                           | à faire  |

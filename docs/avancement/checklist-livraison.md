@@ -50,11 +50,19 @@ Dernière mise à jour : 2026-09-07.
 ## Phase 7. Déploiement et livraison (plan, points 52 à 58)
 
 - [ ] L-01 Déploiement sur une URL stable de recette (base hébergée)
-- [ ] L-02 Documentation technique (L6), testée par un lancement à froid sur
-      poste vierge (cas R12)
-- [ ] L-03 Documentation utilisateur (L7), captures d'écran
-- [ ] L-04 Registre des écarts (L9) : bugs connus, limites, dette technique
-- [ ] L-05 Feuille de route (L10) : priorités à 30-60 jours
+- [x] L-02 Documentation technique (L6), testée par un lancement à froid sur
+      poste vierge (cas R12) (2026-09-07, `docs/documentation-technique.md` ;
+      lancement à froid rejoué sur ce poste sans `node_modules`, `.next` ni
+      client Prisma généré, réinstallation et démarrage réussis en 7,5
+      minutes ; Node.js et le cache npm global restaient présents, pas un
+      poste réellement vierge)
+- [x] L-03 Documentation utilisateur (L7), captures d'écran (2026-09-07,
+      `docs/utilisateur/guide-utilisateur.md`, six captures réelles dans
+      `docs/captures/`)
+- [x] L-04 Registre des écarts (L9) : bugs connus, limites, dette technique
+      (2026-09-07, `docs/registre-ecarts.md`, aucun bug bloquant connu)
+- [x] L-05 Feuille de route (L10) : priorités à 30-60 jours (2026-09-07,
+      `docs/feuille-de-route.md`)
 - [ ] L-06 Recette interne : dérouler R01 à R12 sur l'URL déployée
 - [ ] L-07 Répétition de la démonstration de 45 minutes + transfert des accès
 
