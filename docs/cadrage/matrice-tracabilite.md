@@ -131,15 +131,15 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 ## Sécurité et qualité
 
-| ID    | Exigence                                          | Module          | Preuve               | Statut   |
-| ----- | ------------------------------------------------- | --------------- | -------------------- | -------- |
-| SEC-1 | Mots de passe hachés                              | auth            | Test unitaire        | fait     |
-| SEC-2 | Secrets en variables d'environnement              | .env.example    | Revue, NR-6          | fait     |
-| SEC-3 | Contrôle d'accès côté serveur                     | proxy, services | R07                  | en cours |
-| SEC-4 | Validation côté client et côté serveur            | validation      | R02, R03             | en cours |
-| SEC-5 | Aucune donnée réelle de client                    | prisma/seed     | Revue                | en cours |
-| SEC-6 | Erreurs gérées sans information technique exposée | services, app   | Revue                | en cours |
-| SEC-7 | Dépendances inventoriées avec licence et coût     | docs            | Inventaire (phase 6) | en cours |
+| ID    | Exigence                                          | Module          | Preuve                         | Statut   |
+| ----- | ------------------------------------------------- | --------------- | ------------------------------ | -------- |
+| SEC-1 | Mots de passe hachés                              | auth            | Test unitaire                  | fait     |
+| SEC-2 | Secrets en variables d'environnement              | .env.example    | Revue, NR-6                    | fait     |
+| SEC-3 | Contrôle d'accès côté serveur                     | proxy, services | R07, audit-securite-2026-09-07 | fait     |
+| SEC-4 | Validation côté client et côté serveur            | validation      | R02, R03                       | en cours |
+| SEC-5 | Aucune donnée réelle de client                    | prisma/seed     | Revue                          | fait     |
+| SEC-6 | Erreurs gérées sans information technique exposée | services, app   | audit-securite-2026-09-07      | fait     |
+| SEC-7 | Dépendances inventoriées avec licence et coût     | docs            | inventaire-dependances.md      | fait     |
 
 ## Contraintes de développement
 
@@ -154,16 +154,16 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 ## Exigences non fonctionnelles
 
-| ID   | Exigence                                                  | Module      | Preuve              | Statut   |
-| ---- | --------------------------------------------------------- | ----------- | ------------------- | -------- |
-| NF-1 | Disponibilité pendant la recette                          | hébergement | URL stable (L2)     | à faire  |
-| NF-2 | Navigation fluide, calcul sans attente perceptible        | moteur, app | Mesure              | en cours |
-| NF-3 | Chrome et Edge récents, mobile et desktop                 | app         | Captures            | en cours |
-| NF-4 | Aucune perte après sauvegarde confirmée                   | services    | R09                 | à faire  |
-| NF-5 | Résultats rattachés à une version et à des paramètres     | moteur, bd  | DON-5               | à faire  |
-| NF-6 | Structure claire, nommage cohérent, fonctions documentées | dépôt       | docs/conventions.md | en cours |
-| NF-7 | Navigation clavier, labels, contraste                     | composants  | Audit accessibilité | en cours |
-| NF-8 | Journalisation minimale des erreurs serveur               | services    | Revue               | en cours |
+| ID   | Exigence                                                  | Module      | Preuve                                | Statut   |
+| ---- | --------------------------------------------------------- | ----------- | ------------------------------------- | -------- |
+| NF-1 | Disponibilité pendant la recette                          | hébergement | URL stable (L2)                       | à faire  |
+| NF-2 | Navigation fluide, calcul sans attente perceptible        | moteur, app | Mesure                                | en cours |
+| NF-3 | Chrome et Edge récents, mobile et desktop                 | app         | Captures                              | en cours |
+| NF-4 | Aucune perte après sauvegarde confirmée                   | services    | R09                                   | à faire  |
+| NF-5 | Résultats rattachés à une version et à des paramètres     | moteur, bd  | DON-5                                 | à faire  |
+| NF-6 | Structure claire, nommage cohérent, fonctions documentées | dépôt       | docs/conventions.md                   | en cours |
+| NF-7 | Navigation clavier, labels, contraste                     | composants  | Audit accessibilité                   | en cours |
+| NF-8 | Journalisation minimale des erreurs serveur               | services    | journal.ts, audit-securite-2026-09-07 | fait     |
 
 ## Scénarios de recette
 
@@ -199,13 +199,13 @@ Modules abrégés : `moteur` pour `src/lib/moteur`, `validation` pour
 
 ## Motifs de non-recevabilité
 
-| ID   | Constat éliminatoire                                           | Parade                                                        | Statut   |
-| ---- | -------------------------------------------------------------- | ------------------------------------------------------------- | -------- |
-| NR-1 | Code source incomplet ou projet impossible à lancer            | Dépôt complet, README testé à froid (R12)                     | en cours |
-| NR-2 | Résultats codés en dur ou calculs différents selon le parcours | Moteur unique, cas de recette en entrée seulement             | en cours |
-| NR-3 | Écarts inexpliqués avec les cas de référence                   | Tests de référence, décomposition du score                    | en cours |
-| NR-4 | Perte de données après sauvegarde confirmée                    | Transactions, R09 automatisé                                  | à faire  |
-| NR-5 | Accès aux données Expert sans autorisation                     | Garde de routage et de service, R07 automatisé                | à faire  |
-| NR-6 | Secrets dans le dépôt                                          | .env ignoré, scan des secrets avant livraison                 | en cours |
-| NR-7 | Dépendance critique non déclarée ou abonnement non approuvé    | Inventaire des dépendances, hébergement déclaré (question 11) | en cours |
-| NR-8 | Application inaccessible pour la recette                       | URL stable vérifiée avant la démo                             | à faire  |
+| ID   | Constat éliminatoire                                           | Parade                                                                 | Statut   |
+| ---- | -------------------------------------------------------------- | ---------------------------------------------------------------------- | -------- |
+| NR-1 | Code source incomplet ou projet impossible à lancer            | Dépôt complet, README testé à froid (R12)                              | en cours |
+| NR-2 | Résultats codés en dur ou calculs différents selon le parcours | Moteur unique, cas de recette en entrée seulement                      | en cours |
+| NR-3 | Écarts inexpliqués avec les cas de référence                   | Tests de référence, décomposition du score                             | en cours |
+| NR-4 | Perte de données après sauvegarde confirmée                    | Transactions, R09 automatisé                                           | à faire  |
+| NR-5 | Accès aux données Expert sans autorisation                     | Garde de routage et de service, R07 automatisé                         | à faire  |
+| NR-6 | Secrets dans le dépôt                                          | .env ignoré, audit-securite-2026-09-07 (aucun secret trouvé)           | fait     |
+| NR-7 | Dépendance critique non déclarée ou abonnement non approuvé    | inventaire-dependances.md ; hébergement encore à choisir (question 11) | en cours |
+| NR-8 | Application inaccessible pour la recette                       | URL stable vérifiée avant la démo                                      | à faire  |
