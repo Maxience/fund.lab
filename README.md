@@ -57,6 +57,12 @@ suivant si celui-ci est occupé.
   arborescence, invariants d'architecture, flux de travail.
 - [Journal des décisions](docs/decisions/) : choix structurants et leurs
   motifs.
+- [Documentation technique](docs/documentation-technique.md) (L6) :
+  installation, variables d'environnement, architecture, déploiement.
+- [Guide utilisateur](docs/utilisateur/guide-utilisateur.md) (L7) :
+  parcours PME et accès Expert, avec captures.
+- [Registre des écarts](docs/registre-ecarts.md) (L9) et
+  [feuille de route](docs/feuille-de-route.md) (L10).
 - [Plan d'implémentation](docs/plan-implementation.md) : points ordonnés,
   phase par phase.
 
