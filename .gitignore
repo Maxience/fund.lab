@@ -46,3 +46,12 @@ next-env.d.ts
 
 # documents PDF et HTML generes par npm run exporter:pdf (la source reste le Markdown)
 /livrables
+
+# fichiers generes par next dev pour les agents IA (voir AGENTS.md)
+/AGENTS.md
+
+# configuration personnelle de l'assistant, hors perimetre du depot
+/CLAUDE.md
+
+# documents confidentiels FUND.lab (brief, etc.) : ne jamais committer
+*.pdf
