@@ -27,8 +27,8 @@ Dernière mise à jour : 2026-09-07.
 - [ ] Q-04 Un scénario de test automatisé par cas de recette R01 à R12
 - [ ] Q-05 Audit de sécurité : garde sur chaque route Expert, scan des
       secrets, en-têtes de sécurité, aucune trace technique exposée
-- [ ] Q-06 Inventaire des dépendances : licence, coût, niveau gratuit,
-      réversibilité
+- [x] Q-06 Inventaire des dépendances : licence, coût, niveau gratuit,
+      réversibilité (2026-09-07, `docs/inventaire-dependances.md`)
 
 ## Phase 7. Déploiement et livraison (plan, points 52 à 58)
 
